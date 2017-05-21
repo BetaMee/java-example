@@ -8,8 +8,6 @@ import javax.servlet.http.*;
  * Created by Betamee on 2017/5/21.
  */
 public class Customer extends javax.servlet.http.HttpServlet {
-    private String message = "hhhh";
-
     public void init() throws ServletException{
 
     }
@@ -24,7 +22,7 @@ public class Customer extends javax.servlet.http.HttpServlet {
         response.setContentType("text/html");
         // 处理逻辑
         PrintWriter out = response.getWriter();
-        out.println("<h1>" + message + "</h1>");
+        out.println("<h1>jjj</h1>");
     }
     public void destroy() {
 

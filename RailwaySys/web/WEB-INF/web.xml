@@ -8,4 +8,19 @@
         <servlet-name>Customer</servlet-name>
         <servlet-class>Railway.Customer</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Manager</servlet-name>
+        <servlet-class>Railway.Manager</servlet-class>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>Customer</servlet-name>
+        <url-pattern>/customer</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>Manager</servlet-name>
+        <url-pattern>/manager</url-pattern>
+    </servlet-mapping>
 </web-app>

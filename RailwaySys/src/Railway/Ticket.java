@@ -49,14 +49,12 @@ public class Ticket extends HttpServlet {
         Statement stmt = JDBCUtil.getStatement(conn);
         //构建查询语句
         String sql = null;
-        if (starttime=="" && startdate=="" &&  startcity=="" && endcity=="" &&  tranname=="") {  // 全选
-            sql = "SELECT * FROM `websites` WHERE 1";
-        }
-
-        if () {
-            sql = "SELECT * from `websites` WHERE starttime="+starttime+""
-        }
-
+//        if (starttime=="" && startdate=="" &&  startcity=="" && endcity=="" &&  tranname=="") {  // 全选
+//            sql = "SELECT * FROM `websites` WHERE 1";
+//        }else{
+//            sql = "SELECT * from `websites` WHERE `start_date`="+startdate+" AND `start_city`="+startcity+" AND `end_city`="+endcity +" AND `train_name`="+tranname;
+//        }
+//        System.out.printf(sql);
         try {
             ResultSet rs= JDBCUtil.getRs(stmt, sql); // 获取结果
             JSONArray jsonArr = new JSONArray();
@@ -90,6 +88,5 @@ public class Ticket extends HttpServlet {
         }catch (SQLException se) {
             se.printStackTrace();
         }
-        System.out.printf(starttime);
     }
 }

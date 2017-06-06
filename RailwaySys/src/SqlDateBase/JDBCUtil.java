@@ -41,20 +41,22 @@ public class JDBCUtil  {
         return stmt;
     }
 
-//    public static PreparedStatement getPreparedStatement(Connection conn, String sql) {
-//        PreparedStatement pstmt =null;
-//        try {
-//            pstmt = conn.prepareStatement(sql);
-//        }catch (SQLException  se) {
-//            se.printStackTrace();
-//        }
-//        return  pstmt;
-//    }
+    public static PreparedStatement getPreparedStatement(Connection conn, String sql) {
+        PreparedStatement pstmt =null;
+        try {
+            pstmt = conn.prepareStatement(sql);
+        }catch (SQLException  se) {
+            se.printStackTrace();
+        }
+        return  pstmt;
+    }
 
     public static ResultSet getRs(Statement stmt, String sql) {
         ResultSet rs = null;
         try {
+//            sql = "SELECT * from `websites` WHERE `start_date`='2017-11-5' AND `start_city`='北京' AND `end_city`='上海'  AND `train_name`='T101'";
             rs = stmt.executeQuery(sql);
+            System.out.println();
         }catch (SQLException se){
             se.printStackTrace();
         }

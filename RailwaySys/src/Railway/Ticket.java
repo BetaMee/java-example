@@ -36,11 +36,11 @@ public class Ticket extends HttpServlet {
     // 通过参数来获取数据库的信息
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 获取请求信息
-        String starttime =new String(request.getParameter("starttime"));
-        String startdate =new String(request.getParameter("startdate"));
-        String startcity =new String(request.getParameter("startcity"));
-        String endcity =new String(request.getParameter("endcity"));
-        String tranname =new String(request.getParameter("tranname"));
+//        String starttime =new String(request.getParameter("starttime"));
+            String startdate =new String(request.getParameter("startdate"));
+            String startcity =new String(request.getParameter("startcity").getBytes("ISO8859-1"),"UTF-8");
+            String endcity =new String(request.getParameter("endcity").getBytes("ISO8859-1"),"UTF-8");
+            String tranname =new String(request.getParameter("tranname"));
         // 设置响应内容类型
         response.setContentType("text/json; charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -49,17 +49,20 @@ public class Ticket extends HttpServlet {
         Statement stmt = JDBCUtil.getStatement(conn);
         //构建查询语句
         String sql = null;
-//        if (starttime=="" && startdate=="" &&  startcity=="" && endcity=="" &&  tranname=="") {  // 全选
-//            sql = "SELECT * FROM `websites` WHERE 1";
-//        }else{
-//            sql = "SELECT * from `websites` WHERE `start_date`="+startdate+" AND `start_city`="+startcity+" AND `end_city`="+endcity +" AND `train_name`="+tranname;
-//        }
-//        System.out.printf(sql);
+        if (startdate=="" &&  startcity=="" && endcity=="" &&  tranname=="") {  // 全选
+            sql = "SELECT * FROM `websites` WHERE 1";
+        }else{
+//            sql = "SELECT * from `websites` WHERE `start_date`='"+startdate+"' AND `start_city`='"+startcity+"' AND `end_city`='"+endcity +"' AND `train_name`='"+tranname+"'";
+            sql = "SELECT * from `websites` WHERE `start_date`='"+startdate+"' AND `train_name`='"+tranname+"'";
+
+        }
         try {
             ResultSet rs= JDBCUtil.getRs(stmt, sql); // 获取结果
             JSONArray jsonArr = new JSONArray();
+
             //处理结果
             while (rs.next()){
+
                 JSONObject jsonObj = new JSONObject(); // json对象
                 int id  = rs.getInt("id");
                 String train_name = rs.getString("train_name");
@@ -84,7 +87,6 @@ public class Ticket extends HttpServlet {
             }
             // 发送json数组
             out.println(jsonArr);
-
         }catch (SQLException se) {
             se.printStackTrace();
         }

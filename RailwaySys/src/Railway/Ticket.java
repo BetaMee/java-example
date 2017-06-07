@@ -25,11 +25,57 @@ import java.sql.Statement;
  */
 @WebServlet(name = "Ticket")
 public class Ticket extends HttpServlet {
+    private Connection conn = null;
+    private  Statement stmt = null;
+
     public Ticket() {
         super();
     }
+
     // 通过post新增数据
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 设置响应内容类型
+        response.setContentType("text/json; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        // 获取参数
+        String tranname =new String(request.getParameter("tranname")); // 班车
+        String startdate =new String(request.getParameter("startdate")); // 发车日期
+        String starttime =new String(request.getParameter("starttime")); //发车时间
+        String startcity =new String(request.getParameter("startcity")); // 起始城市
+        String endcity =new String(request.getParameter("endcity")); // 终点城市
+        String price =new String(request.getParameter("price")); // 票价
+        String tickets =new String(request.getParameter("tickets")); // 票数
+
+        //数据库连接
+        if (this.conn == null) {
+           this.conn =  JDBCUtil.getConnection();
+        }
+
+        if (this.stmt == null) {
+            this.stmt = JDBCUtil.getStatement(this.conn);
+        }
+        // 构建查询语句
+        String sql =null;
+        sql = "INSERT INTO `websites` (train_name, start_date, start_time, start_city, end_city, tickets, price) VALUES ('"
+                +tranname+ "', '"+ startdate + "', '" +starttime +"', '" + startcity+"', '" +endcity + "', "+ tickets+ ", " +price+
+                ")";
+        System.out.println(sql);
+        // 插入数据
+        JSONArray jsonArr = new JSONArray();
+        JSONObject jsonObj = new JSONObject(); // json对象
+        try {
+            JDBCUtil.insertRs(this.stmt, sql); // 获取结果
+            jsonObj.put("status","success")
+                    .put("result",0);
+            // 放入数组中
+            jsonArr.put(jsonObj);
+            // 发送json数组
+            out.println(jsonArr);
+
+        }catch (JSONException je) {
+            je.printStackTrace();
+        }
+
 
     }
 
@@ -45,8 +91,8 @@ public class Ticket extends HttpServlet {
         response.setContentType("text/json; charset=UTF-8");
         PrintWriter out = response.getWriter();
         // 数据库连接
-        Connection conn =  JDBCUtil.getConnection();
-        Statement stmt = JDBCUtil.getStatement(conn);
+        this.conn =  JDBCUtil.getConnection();
+        this.stmt = JDBCUtil.getStatement(this.conn);
         //构建查询语句
         String sql = null;
         if (startdate=="" &&  startcity=="" && endcity=="" &&  tranname=="") {  // 全选
@@ -57,7 +103,7 @@ public class Ticket extends HttpServlet {
 
         }
         try {
-            ResultSet rs= JDBCUtil.getRs(stmt, sql); // 获取结果
+            ResultSet rs= JDBCUtil.getRs(this.stmt, sql); // 获取结果
             JSONArray jsonArr = new JSONArray();
 
             //处理结果
@@ -92,5 +138,9 @@ public class Ticket extends HttpServlet {
         }catch (SQLException se) {
             se.printStackTrace();
         }
+    }
+
+    public static  void  main(String[] args) {
+
     }
 }

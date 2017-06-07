@@ -54,14 +54,19 @@ public class JDBCUtil  {
     public static ResultSet getRs(Statement stmt, String sql) {
         ResultSet rs = null;
         try {
-//            sql = "SELECT * from `websites` WHERE `start_date`='2017-11-5' AND `start_city`='北京' AND `end_city`='上海'  AND `train_name`='T101'";
             rs = stmt.executeQuery(sql);
-            System.out.println();
         }catch (SQLException se){
             se.printStackTrace();
         }
 
         return  rs;
+    }
+    public static void insertRs(Statement stmt, String sql) {
+        try {
+          stmt.executeUpdate(sql);
+        }catch (SQLException se){
+            se.printStackTrace();
+        }
     }
     // 关闭资源
     public static void close(Statement stmt) {

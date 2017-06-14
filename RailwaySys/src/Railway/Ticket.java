@@ -45,12 +45,10 @@ public class Ticket extends HttpServlet {
         String endcity =new String(request.getParameter("endcity")); // 终点城市
         String price =new String(request.getParameter("price")); // 票价
         String tickets =new String(request.getParameter("tickets")); // 票数
-
         //数据库连接
         if (this.conn == null) {
            this.conn =  JDBCUtil.getConnection();
         }
-
         if (this.stmt == null) {
             this.stmt = JDBCUtil.getStatement(this.conn);
         }
@@ -75,14 +73,11 @@ public class Ticket extends HttpServlet {
         }catch (JSONException je) {
             je.printStackTrace();
         }
-
-
     }
 
     // 通过参数来获取数据库的信息
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 获取请求信息
-//        String starttime =new String(request.getParameter("starttime"));
             String startdate =new String(request.getParameter("startdate"));
             String startcity =new String(request.getParameter("startcity").getBytes("ISO8859-1"),"UTF-8");
             String endcity =new String(request.getParameter("endcity").getBytes("ISO8859-1"),"UTF-8");
@@ -98,14 +93,11 @@ public class Ticket extends HttpServlet {
         if (startdate=="" &&  startcity=="" && endcity=="" &&  tranname=="") {  // 全选
             sql = "SELECT * FROM `websites` WHERE 1";
         }else{
-//            sql = "SELECT * from `websites` WHERE `start_date`='"+startdate+"' AND `start_city`='"+startcity+"' AND `end_city`='"+endcity +"' AND `train_name`='"+tranname+"'";
             sql = "SELECT * from `websites` WHERE `start_date`='"+startdate+"' AND `train_name`='"+tranname+"'";
-
         }
         try {
             ResultSet rs= JDBCUtil.getRs(this.stmt, sql); // 获取结果
             JSONArray jsonArr = new JSONArray();
-
             //处理结果
             while (rs.next()){
 
@@ -138,9 +130,5 @@ public class Ticket extends HttpServlet {
         }catch (SQLException se) {
             se.printStackTrace();
         }
-    }
-
-    public static  void  main(String[] args) {
-
     }
 }

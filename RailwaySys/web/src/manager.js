@@ -11,16 +11,6 @@ $(document).ready(function () {
             e.preventDefault();
             var url = "http://localhost:8080/ticket";
 
-            // var d = {
-            //     tranname:"hhh",
-            //     startdate:"ddd",
-            //     starttime:"ddd",
-            //     startcity:"dsss",
-            //     endcity:"safd",
-            //     price :52,
-            //     tickets:100
-            // };
-
             var data = getInputval();
             console.log(data);
             $.post(url,data,function (data,status) {

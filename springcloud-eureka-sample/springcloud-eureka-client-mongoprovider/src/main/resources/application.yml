@@ -1,0 +1,14 @@
+server: # mongodb服务配置
+  port: 8081 # 服务端口
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8888/eureka/ # 服务注册中心地址
+
+spring:
+  application:
+    name: mongodb-provider-service # 服务名称
+  data:
+    mongodb:
+      uri: mongodb:// localhost:27017/microserver

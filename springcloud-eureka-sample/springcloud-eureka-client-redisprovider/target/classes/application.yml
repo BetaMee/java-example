@@ -1,0 +1,11 @@
+server: # mongodb服务配置
+  port: 8082 # 服务端口
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8888/eureka/ # 服务注册中心地址
+
+spring:
+  application:
+    name: redis-provider-service # 服务名称

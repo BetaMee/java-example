@@ -1,0 +1,26 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<name>springcloud :: Eureka Sample</name>
+
+	<groupId>springcloud</groupId>
+	<artifactId>springcloud-eureka-sample</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<!-- Spring Cloud 之 Eureka 入门案例 -->
+		<!-- Spring Cloud Eureka 服务注册中心 -->
+		<module>springcloud-eureka-server</module>
+		<!-- Spring Cloud 服务提供者MySQL数据库 -->
+		<module>springcloud-eureka-client-provider</module>
+		<!-- Spring Cloud 服务消费者 -->
+		<module>springcloud-eureka-client-customer</module>
+		<!--Spring Cloud 服务提供者 MongoDB数据库-->
+		<module>springcloud-eureka-client-mongoprovider</module>
+		<!--Spring Cloud 服务提供者 Redis数据库-->
+		<module>springcloud-eureka-client-redisprovider</module>
+        <module>springcloud-eureka-client-redisprovider</module>
+    </modules>
+
+</project>
